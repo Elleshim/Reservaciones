@@ -1,0 +1,30 @@
+CREATE DATABASE Reservation;
+
+USE reservation;
+
+CREATE TABLE Pasajeros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Vuelo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_vuelo VARCHAR(10) NOT NULL UNIQUE,
+    origen VARCHAR(100) NOT NULL,
+    destino VARCHAR(100) NOT NULL,
+    fecha DATE NOT NULL
+);
+
+CREATE TABLE Pasajes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Personas_id INT NOT NULL,
+    Viaje_id INT NOT NULL,
+    fecha_reserva DATE NOT NULL,
+    numero_asiento VARCHAR(10) NOT NULL,
+    clase ENUM('Económica', 'Ejecutiva', 'Primera') NOT NULL,
+    FOREIGN KEY (Personas_id) REFERENCES Personas(id),
+    FOREIGN KEY (Viaje_id) REFERENCES Viaje(id),
+    UNIQUE (Personas_id, Viaje_id)
+);
